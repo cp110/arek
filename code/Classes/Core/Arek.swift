@@ -253,7 +253,7 @@ open class ArekBasePermission {
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.lineSpacing = alertDescriptionLineHeight
             let attrString = NSMutableAttributedString(string: message)
-            attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
+            attrString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: attrString.length))
             alertVC.alertDescription.attributedText = attrString
         }
     }
