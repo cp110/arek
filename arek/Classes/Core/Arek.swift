@@ -128,11 +128,12 @@ open class ArekBasePermission {
                                             styling: styling,
                                             completion: completion)
             break
-        case .native:
+        case .actionSheet, .alert:
             self.presentInitialNativePopup(title: title,
                                            message: message,
                                            allowButtonTitle: allowButtonTitle,
                                            denyButtonTitle: denyButtonTitle,
+                                           popupType: self.initialPopupData.type,
                                            completion: completion)
             break
         }
@@ -262,9 +263,10 @@ open class ArekBasePermission {
                                            message: String,
                                            allowButtonTitle: String,
                                            denyButtonTitle: String,
+                                           popupType: ArekPopupType,
                                            completion: @escaping ArekPermissionResponse) {
         
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: (popupType == .actionSheet ? .actionSheet: .alert))
         
         let allow = UIAlertAction(title: allowButtonTitle, style: .default) { _ in
             (self as? ArekPermissionProtocol)?.askForPermission(completion: completion)
@@ -318,7 +320,7 @@ open class ArekBasePermission {
                                              allowButtonTitle: allowButtonTitle,
                                              denyButtonTitle: denyButtonTitle)
             break
-        case .native:
+        case .actionSheet, .alert:
             self.presentReEnableNativePopup(title: title,
                                             message: message,
                                             allowButtonTitle: allowButtonTitle,
